@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDF.js Express Viewer</title>
+</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Import PDF.js Express Viewer as a script tag from the lib folder using a relative path -->
+<script src='/pdfjsexpresslib/webviewer.min.js'></script>
+<style>
+
+#viewer {
+   height:100vh;
+  padding: 0;
+}
+</style>
+<body>
+  <div id='viewer' style="widht:100%"></div>
+</body>
+
+  <script>
+    var url = new URL(window.location.href);
+let sourceid = url.searchParams.get('url');
+    
+  WebViewer({
+    path: 'pdfjsexpresslib', // path to the PDF.js Express'lib' folder on your server
+    licenseKey: 'QaApj9jraFxyMd1C7kDz',
+    initialDoc: sourceid ?? 'https://pdftron.s3.amazonaws.com/downloads/pl/webviewer-demo.pdf',
+    // initialDoc: '/path/to/my/file.pdf',  // You can also use documents on your server
+  }, document.getElementById('viewer'))
+  .then(instance => {
+    // now you can access APIs through the WebViewer instance
+    const { Core, UI } = instance;
+
+    // adding an event listener for when a document is loaded
+    Core.documentViewer.addEventListener('documentLoaded', () => {
+      console.log('document loaded');
+    });
+
+    // adding an event listener for when the page number has changed
+    Core.documentViewer.addEventListener('pageNumberUpdated', (pageNumber) => {
+      console.log(`Page number is: ${pageNumber}`);
+    });
+  });
+</script>
+  
+</html>
