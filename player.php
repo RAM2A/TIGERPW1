@@ -38,6 +38,11 @@ header('Access-Control-Allow-Origin: *');
 <script src="/new-player/js/watermark.js"></script>
 <script src="/new-player/js/volume.js"></script>
 <script src="/new-player/js/toggle.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-resolution-switcher/0.4.2/videojs-resolution-switcher.min.js" >
+
+    
+  </script>
 </head>
 
 <body>
@@ -105,6 +110,10 @@ header('Access-Control-Allow-Origin: *');
        autoplay: true,
         playbackRates: [0.7, 1.0, 1.5, 2.0,2.5,3],
         plugins: {
+                videoJsResolutionSwitcher: {
+                  default: 'high',
+                  dynamicLabel: true
+                },
           eme: {
             keySystems: {
               "org.w3.clearkey": {
@@ -153,7 +162,7 @@ header('Access-Control-Allow-Origin: *');
                     )
                   );
 
-                          const playerb = new Plyr('#videojs-contrib-eme-player');
+                        
 
                   });
 
