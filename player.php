@@ -13,8 +13,13 @@ header('Access-Control-Allow-Origin: *');
   <title>PW PLAYER</title>
   
   
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/videojs-seek-buttons@2.2.1/dist/videojs-seek-buttons.css">
- -->
+<style>
+
+  div#video_player_mpeg {
+    width: 100%;
+    height:35rem;
+}
+</style>
   
 <link href="/new-player/css/default.css" rel="stylesheet">
 <link href="/new-player/css/plugins/pip.css" rel="stylesheet">
@@ -36,7 +41,7 @@ header('Access-Control-Allow-Origin: *');
 </head>
 
 <body>
-<video id="video_player_mpeg" class="video-js vjs-default-skin vjs-big-play-centered" controls="" preload="auto" width="900" height="416" poster="https://physicswallah.pages.dev/uploads/physicswallah.png">
+<video id="video_player_mpeg" class="video-js vjs-default-skin vjs-big-play-centered" controls="" preload="auto" poster="https://physicswallah.pages.dev/uploads/physicswallah.png">
 
     <!-- <source src="https://penpencil.pc.cdn.bitgravity.com/c25250fc-d702-4f47-8199-d1efbecabe51/master.mpd" type="application/dash+xml" /> -->
     <source src="<?php echo $_GET["url"] ?>"
