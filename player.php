@@ -11,330 +11,40 @@ header('Access-Control-Allow-Origin: *');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8" />
   <title>PW PLAYER</title>
-  <link href="https://vjs.zencdn.net/7.18.1/video-js.css" rel="stylesheet" />
-  <link href="https://unpkg.com/@videojs/themes@1/dist/sea/index.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/videojs-seek-buttons@2.2.1/dist/videojs-seek-buttons.css">
+  
+  
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/videojs-seek-buttons@2.2.1/dist/videojs-seek-buttons.css">
+ -->
+  
+<link href="/new-player/css/default.css" rel="stylesheet">
+<link href="/new-player/css/plugins/pip.css" rel="stylesheet">
 
-<style>
-  #test {
-  width: 480px;
-  margin: 0 auto;
-}
-.video-js .vjs-menu-button-inline.vjs-slider-active,
-.video-js .vjs-menu-button-inline:focus,
-.video-js .vjs-menu-button-inline:hover,
-.video-js.vjs-no-flex .vjs-menu-button-inline {
-    width: 10em
-}
+<link rel='stylesheet' id='materialicons-css' href='https://fonts.googleapis.com/icon?family=Material+Icons' type='text/css' media='all' />
 
-.video-js .vjs-controls-disabled .vjs-big-play-button {
-    display: none!important
-}
 
-.video-js .vjs-control {
-    width: 3em
-}
-
-.video-js .vjs-menu-button-inline:before {
-    width: 1.5em
-}
-
-.vjs-menu-button-inline .vjs-menu {
-    left: 3em
-}
-
-.video-js.vjs-paused .vjs-big-play-button,
-.vjs-paused.vjs-has-started.video-js .vjs-big-play-button {
-    display: block
-}
-
-.video-js .vjs-load-progress div,
-.vjs-seeking .vjs-big-play-button,
-.vjs-waiting .vjs-big-play-button {
-    display: none!important
-}
-
-.video-js .vjs-mouse-display:after,
-.video-js .vjs-play-progress:after {
-    padding: 0 .4em .3em
-}
-
-.video-js.vjs-ended .vjs-loading-spinner {
-    display: none
-}
-
-.video-js.vjs-ended .vjs-big-play-button {
-    display: block!important
-}
-
-.video-js *,
-.video-js:after,
-.video-js:before {
-    box-sizing: inherit;
-    font-size: inherit;
-    color: inherit;
-    line-height: inherit
-}
-
-.video-js.vjs-fullscreen,
-.video-js.vjs-fullscreen .vjs-tech {
-    width: 100%!important;
-    height: 100%!important
-}
-
-.video-js {
-    font-size: 14px;
-    overflow: hidden
-}
-
-.video-js .vjs-control {
-    color: inherit
-}
-
-.video-js .vjs-menu-button-inline:hover,
-.video-js.vjs-no-flex .vjs-menu-button-inline {
-    width: 8.35em
-}
-
-.video-js .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover .vjs-menu .vjs-menu-content {
-    height: 3em;
-    width: 6.35em
-}
-
-.video-js .vjs-control:focus:before,
-.video-js .vjs-control:hover:before {
-    text-shadow: 0 0 1em #fff, 0 0 1em #fff, 0 0 1em #fff
-}
-
-.video-js .vjs-spacer,
-.video-js .vjs-time-control {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-flex: 1 1 auto;
-    -moz-box-flex: 1 1 auto;
-    -webkit-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto
-}
-
-.video-js .vjs-time-control {
-    -webkit-box-flex: 0 1 auto;
-    -moz-box-flex: 0 1 auto;
-    -webkit-flex: 0 1 auto;
-    -ms-flex: 0 1 auto;
-    flex: 0 1 auto;
-    width: auto
-}
-
-.video-js .vjs-time-control.vjs-time-divider {
-    width: 14px
-}
-
-.video-js .vjs-time-control.vjs-time-divider div {
-    width: 100%;
-    text-align: center
-}
-
-.video-js .vjs-time-control.vjs-current-time {
-    margin-left: 1em
-}
-
-.video-js .vjs-time-control .vjs-current-time-display,
-.video-js .vjs-time-control .vjs-duration-display {
-    width: 100%
-}
-
-.video-js .vjs-time-control .vjs-current-time-display {
-    text-align: right
-}
-
-.video-js .vjs-time-control .vjs-duration-display {
-    text-align: left
-}
-
-.video-js .vjs-play-progress:before,
-.video-js .vjs-progress-control .vjs-play-progress:before,
-.video-js .vjs-remaining-time,
-.video-js .vjs-volume-level:after,
-.video-js .vjs-volume-level:before,
-.video-js.vjs-live .vjs-time-control.vjs-current-time,
-.video-js.vjs-live .vjs-time-control.vjs-duration,
-.video-js.vjs-live .vjs-time-control.vjs-time-divider,
-.video-js.vjs-no-flex .vjs-time-control.vjs-remaining-time {
-    display: none
-}
-
-.video-js.vjs-no-flex .vjs-time-control {
-    display: table-cell;
-    width: 4em
-}
-
-.video-js .vjs-progress-control {
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: .5em;
-    top: -.5em
-}
-
-.video-js .vjs-progress-control .vjs-load-progress,
-.video-js .vjs-progress-control .vjs-play-progress,
-.video-js .vjs-progress-control .vjs-progress-holder {
-    height: 100%
-}
-
-.video-js .vjs-progress-control .vjs-progress-holder {
-    margin: 0
-}
-
-.video-js .vjs-progress-control:hover {
-    height: 1.5em;
-    top: -1.5em
-}
-
-.video-js .vjs-control-bar {
-    -webkit-transition: -webkit-transform .1s ease 0s;
-    -moz-transition: -moz-transform .1s ease 0s;
-    -ms-transition: -ms-transform .1s ease 0s;
-    -o-transition: -o-transform .1s ease 0s;
-    transition: transform .1s ease 0s
-}
-
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-active .vjs-control-bar,
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive .vjs-control-bar,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active .vjs-control-bar,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive .vjs-control-bar,
-.video-js.vjs-has-started.vjs-playing.vjs-user-inactive .vjs-control-bar {
-    visibility: visible;
-    opacity: 1;
-    -webkit-backface-visibility: hidden;
-    -webkit-transform: translateY(3em);
-    -moz-transform: translateY(3em);
-    -ms-transform: translateY(3em);
-    -o-transform: translateY(3em);
-    transform: translateY(3em);
-    -webkit-transition: -webkit-transform 1s ease 0s;
-    -moz-transition: -moz-transform 1s ease 0s;
-    -ms-transition: -ms-transform 1s ease 0s;
-    -o-transition: -o-transform 1s ease 0s;
-    transition: transform 1s ease 0s
-}
-
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-active .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive .vjs-progress-control,
-.video-js.vjs-has-started.vjs-playing.vjs-user-inactive .vjs-progress-control {
-    height: .25em;
-    top: -.25em;
-    pointer-events: none;
-    -webkit-transition: height 1s, top 1s;
-    -moz-transition: height 1s, top 1s;
-    -ms-transition: height 1s, top 1s;
-    -o-transition: height 1s, top 1s;
-    transition: height 1s, top 1s
-}
-
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-active.vjs-fullscreen .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive.vjs-fullscreen .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active.vjs-fullscreen .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive.vjs-fullscreen .vjs-progress-control,
-.video-js.vjs-has-started.vjs-playing.vjs-user-inactive.vjs-fullscreen .vjs-progress-control {
-    opacity: 0;
-    -webkit-transition: opacity 1s ease 1s;
-    -moz-transition: opacity 1s ease 1s;
-    -ms-transition: opacity 1s ease 1s;
-    -o-transition: opacity 1s ease 1s;
-    transition: opacity 1s ease 1s
-}
-
-.video-js.vjs-live .vjs-live-control {
-    margin-left: 1em
-}
-
-.video-js .vjs-big-play-button {
-    top: 50%;
-    left: 50%;
-    margin-left: -1em;
-    width: 2em;
-    border: none;
-    color: #fff;
-    -webkit-transition: border-color .4s, outline .4s, background-color .4s;
-    -moz-transition: border-color .4s, outline .4s, background-color .4s;
-    -ms-transition: border-color .4s, outline .4s, background-color .4s;
-    -o-transition: border-color .4s, outline .4s, background-color .4s;
-    transition: border-color .4s, outline .4s, background-color .4s;
-    background-color: rgba(0, 0, 0, .45);
-    font-size: 3.5em;
-    border-radius: 50%;
-    height: 2em!important;
-    line-height: 2em!important;
-    margin-top: -1em!important
-}
-
-.video-js .vjs-menu-button-popup .vjs-menu {
-    left: -3em
-}
-
-.video-js .vjs-menu-button-popup .vjs-menu .vjs-menu-content {
-    background-color: transparent;
-    width: 12em;
-    left: -1.5em;
-    padding-bottom: .5em
-}
-
-.video-js .vjs-menu-button-popup .vjs-menu .vjs-menu-item,
-.video-js .vjs-menu-button-popup .vjs-menu .vjs-menu-title {
-    background-color: #151b17;
-    margin: .3em 0;
-    padding: .5em;
-    border-radius: .3em
-}
-
-.video-js .vjs-menu-button-popup .vjs-menu .vjs-menu-item.vjs-selected {
-    background-color: #2483d5
-}
-
-.video-js .vjs-big-play-button:active,
-.video-js .vjs-big-play-button:focus,
-.video-js:hover .vjs-big-play-button {
-    background-color: rgba(36, 131, 213, .9)
-}
-
-.video-js .vjs-loading-spinner {
-    border-color: rgba(36, 131, 213, .8)
-}
-
-.video-js .vjs-control-bar2 {
-    background-color: #000
-}
-
-.video-js .vjs-control-bar {
-    background-color: rgba(0, 0, 0, .3)!important;
-    color: #fff;
-    font-size: 14px
-}
-
-.video-js .vjs-play-progress,
-.video-js .vjs-volume-level {
-    background-color: #2483d5
-}
-</style>
+  <script src="/new-player/js/jquery.min.js"></script>
+  <script src="/new-player/js/video.min.js"></script>
+<script src="/new-player/js/http-source-selector.min.js"></script>
+<script src="/new-player/js/quality-levels.min.js"></script>
+<script src="/new-player/js/social.js"></script>
+<script src="/new-player/js/share.js"></script>
+<script src="/new-player/js/seek-buttons.js"></script>
+<script src="/new-player/js/download.js"></script>
+<script src="/new-player/js/watermark.js"></script>
+<script src="/new-player/js/volume.js"></script>
+<script src="/new-player/js/toggle.min.js"></script>
 </head>
 
 <body>
-  <video id="videojs-contrib-eme-player" style="width: 100%; height: 600px" class="video-js vjs-default-skin" controls>
+<video id="video_player_mpeg" class="video-js vjs-default-skin vjs-big-play-centered" controls="" preload="auto" width="900" height="416" poster="https://physicswallah.pages.dev/uploads/physicswallah.png">
+
     <!-- <source src="https://penpencil.pc.cdn.bitgravity.com/c25250fc-d702-4f47-8199-d1efbecabe51/master.mpd" type="application/dash+xml" /> -->
     <source src="<?php echo $_GET["url"] ?>"
       type="application/dash+xml" />
   </video>
   <ul></ul>
-  <script src="https://vjs.zencdn.net/7.6.6/video.min.js"></script>
+
+</body>
   <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-eme@4.0.1/dist/videojs-contrib-eme.js"></script>
   <script src="./pw.js"></script>
 
@@ -386,7 +96,7 @@ header('Access-Control-Allow-Origin: *');
       // }));
 
       TOKEN = "<?php echo file_get_contents("token.txt"); ?>";
-      let player = (window.player = videojs("videojs-contrib-eme-player", {
+      let player = (window.player = videojs("video_player_mpeg", {
        autoplay: true,
         playbackRates: [0.7, 1.0, 1.5, 2.0,2.5,3],
         plugins: {
@@ -492,8 +202,5 @@ player.seekButtons({
       //                         }))
       //                     }
   </script>
-</body>
-    <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
-
 
 </html>
