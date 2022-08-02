@@ -29,6 +29,14 @@
   <br>
 <br>
   <a class="btn btn-primary" data-mdb-toggle="modal" href="scoreplus/">Scoreplus FORM</a>
+
+    <br>
+<br>
+  <a class="btn btn-primary" data-mdb-toggle="modal" href="mathongo/">Mathongo FORM</a>
+
+      <br>
+<br>
+  <a class="btn btn-primary" data-mdb-toggle="modal" href="apnikaksha/">ApniKaksha FORM</a>
 </center>
 </body>
 

@@ -1,0 +1,1 @@
+{"userid":"68704","token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY4NzA0IiwiZW1haWwiOiJ0YXJhY2hhbmRqMTA0QGdtYWlsLmNvbSIsInRpbWVzdGFtcCI6MTY1OTQzMzg4NH0.3PRUbgW1_03m5P0eIn-GzTaD_uQDWng_lHx59i4f00k","email":"tarachandj104@gmail.com","phone":"8949018291","photo":"","name":"pankaj","username":"kEHXIl","state":"Rajasthan","app_category":"2","is_tester":false}
