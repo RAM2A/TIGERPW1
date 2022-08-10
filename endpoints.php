@@ -74,14 +74,14 @@ function getSubTopicDetails($batchid, $subject_id, $tag, $type)
     // DppNotes
     // DppVideos
 
-    $data =  json_decode(file_getsuper_contents("https://api.penpencil.xyz/v2/batches/$batchid/subject/$subject_id/contents?page=1&contentType=${urlencode($type)}&tag=".urlencode($tag), getBaseHeaders()), true);
+    $data =  json_decode(file_getsuper_contents("https://api.penpencil.xyz/v2/batches/$batchid/subject/$subject_id/contents?page=1&contentType=$type&tag=".urlencode($tag), getBaseHeaders()), true);
     $i = count($data['data']);
 
     $finalD = array_merge($finalD, $data['data']);
 
     $p = 2;
     while ($i < $data['paginate']['totalCount']) {
-        $data =  json_decode(file_getsuper_contents("https://api.penpencil.xyz/v2/batches/$batchid/subject/$subject_id/contents?page=$p&contentType=${urlencode($type)}&tag=".urlencode($tag), getBaseHeaders()), true);
+        $data =  json_decode(file_getsuper_contents("https://api.penpencil.xyz/v2/batches/$batchid/subject/$subject_id/contents?page=$p&contentType=$type&tag=".urlencode($tag), getBaseHeaders()), true);
         $i = $i + count($data['data']);
 
         $finalD = array_merge($finalD, $data['data']);
