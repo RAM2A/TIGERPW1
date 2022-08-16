@@ -65,6 +65,8 @@ foreach($subjects as $subject){
     $suptopic->notes = getSubTopicDetails($batchSlug ,$subject["slug"], $topic["slug"],'notes');
         $suptopic->DppNotes = getSubTopicDetails($batchSlug ,$subject["slug"], $topic["slug"],'DppNotes');
         $suptopic->DppVideos = getSubTopicDetails($batchSlug ,$subject["slug"], $topic["slug"],'DppVideos');
+         $suptopic->exercises = getSubTopicDetails($batchSlug ,$subject["slug"], $topic["slug"],'exercises');
+
 
       $saveto = "subtopics/".$subject["slug"].$topic["slug"].".json";
     save_json($saveto,$suptopic);
@@ -134,9 +136,11 @@ foreach($subjects as $subject){
     $suptopic->notes = getSubTopicDetails($batch["_id"], $subject["_id"], $topic["_id"],'notes');
         $suptopic->DppNotes = getSubTopicDetails($batch["_id"], $subject["_id"], $topic["_id"],'DppNotes');
         $suptopic->DppVideos = getSubTopicDetails($batch["_id"], $subject["_id"], $topic["_id"],'DppVideos');
+    
             $suptopic->exercises = getSubTopicDetails($batch["_id"], $subject["_id"], $topic["_id"],'exercises');
 
-    
+
+    // print_r($suptopic);
 
       $saveto = "subtopics/".$topic["_id"].".json";
     save_json($saveto,$suptopic);
