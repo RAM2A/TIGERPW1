@@ -134,6 +134,9 @@ foreach($subjects as $subject){
     $suptopic->notes = getSubTopicDetails($batch["_id"], $subject["_id"], $topic["_id"],'notes');
         $suptopic->DppNotes = getSubTopicDetails($batch["_id"], $subject["_id"], $topic["_id"],'DppNotes');
         $suptopic->DppVideos = getSubTopicDetails($batch["_id"], $subject["_id"], $topic["_id"],'DppVideos');
+            $suptopic->exercises = getSubTopicDetails($batch["_id"], $subject["_id"], $topic["_id"],'exercises');
+
+    
 
       $saveto = "subtopics/".$topic["_id"].".json";
     save_json($saveto,$suptopic);
