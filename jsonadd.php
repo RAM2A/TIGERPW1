@@ -1,4 +1,4 @@
-<?php
+th<?php
 
 require('./endpoints.php');
 
