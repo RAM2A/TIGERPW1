@@ -16,7 +16,7 @@ if (!file_exists('subtopics')) {
 if($_GET['action'] == 'importBatches'){
 
   $email = @getProfile()['id'];
-$old_batches = @get_json('batches.json');
+$old_batches = @get_json('batches_un.json');
 
 if($email){
       $old_batches[$email] = [];
@@ -39,9 +39,9 @@ foreach(getAllBatches() as $batch){
     
   }
 }
-  save_json('batches.json',$old_batches);
+  save_json('batches_un.json',$old_batches);
 
-  echo '<script>location.replace("jsonadd.php")</script>';
+  echo '<script>location.replace("filter_pw_batches.php")</script>';
 }
   
 }
@@ -90,7 +90,7 @@ echo 'Adding Topic:'.$topic["name"]." in <b>".$batchdet["name"].'</b><br><br>';
   
 if($_GET['action'] == 'addEverything'){
 $email = @getProfile()['id'];
-$old_batches = @get_json('batches.json');
+$old_batches = @get_json('batches_un.json');
 
 if($email){
     $old_batches[$email] = [];
@@ -153,7 +153,7 @@ echo 'Adding Topic:'.$topic["name"]." in <b>".$batch["name"].'</b><br><br>';
     
 }
 }
-save_json('batches.json',$old_batches);
+save_json('batches_un.json',$old_batches);
     echo '<script>location.replace("jsonadd.php")</script>';
 
 }
@@ -277,7 +277,7 @@ select {
                  <div class="row batches">
       
                       <?php 
-$old_batches = @get_json('batches.json');
+$old_batches = @get_json('batches_un.json');
          if($old_batches){
              foreach($old_batches[@getProfile()['id']] as $batch){
           ?>
