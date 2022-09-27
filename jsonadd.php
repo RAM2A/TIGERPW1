@@ -294,6 +294,10 @@ $old_batches = @get_json('batches_un.json');
 
         <div class="card-action">
           <a class="waves-effect waves-light btn" href="?action=importBatch&batch_id=<?php echo $batch["id"] ?>">Import Batch</a>
+
+                    <a class="waves-effect waves-light btn" href="/khazanaadd.php?action=importKhazana&batch_id=<?php echo $batch["id"] ?>">Import khazana</a>
+
+          
         </div>
       </div>
 

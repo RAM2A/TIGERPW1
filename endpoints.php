@@ -38,6 +38,72 @@ function getBatchDetails($batchid)
     return json_decode(file_getsuper_contents("https://api.penpencil.xyz/v3/batches/$batchid/details", getBaseHeaders()), true)['data'];
 }
 
+
+function getKhazanaDetails($khazana_id)
+{
+    return json_decode(file_getsuper_contents("https://api.penpencil.xyz/v1/programs/$khazana_id", getBaseHeaders()), true)['data'];
+}
+
+
+function getKhazanaSubjects($khazana_slug)
+{
+      $a= json_decode(file_getsuper_contents("https://api.penpencil.xyz/v1/programs/$khazana_slug/subjects?page=1", getBaseHeaders()), true)['data'];
+
+      $b= json_decode(file_getsuper_contents("https://api.penpencil.xyz/v1/programs/$khazana_slug/subjects?page=2", getBaseHeaders()), true)['data'];
+
+return array_merge($a, $b);
+
+}
+
+function getKhazanaChapters($khazana_slug,$ch_slug)
+{
+      $a= json_decode(file_getsuper_contents("https://api.penpencil.xyz/v2/programs/$khazana_slug/subjects/$ch_slug/chapters?page=1", getBaseHeaders()), true)['data'];
+
+      $b= json_decode(file_getsuper_contents("https://api.penpencil.xyz/v2/programs/$khazana_slug/subjects/$ch_slug/chapters?page=2", getBaseHeaders()), true)['data'];
+
+return array_merge($a, $b);
+
+}
+
+function getKhazanaTopics($khazana_slug,$ch_slug,$topic)
+{
+      $a= json_decode(file_getsuper_contents("https://api.penpencil.xyz/v1/programs/$khazana_slug/subjects/$ch_slug/chapters/$topic/topics?page=1", getBaseHeaders()), true)['data'];
+
+      $b= json_decode(file_getsuper_contents("https://api.penpencil.xyz/v1/programs/$khazana_slug/subjects/$ch_slug/chapters/$topic/topics?page=2", getBaseHeaders()), true)['data'];
+
+        $c= json_decode(file_getsuper_contents("https://api.penpencil.xyz/v1/programs/$khazana_slug/subjects/$ch_slug/chapters/$topic/topics?page=2", getBaseHeaders()), true)['data'];
+
+return array_merge($a, $b,$c);
+
+}
+
+function getKhazanaSubTopics($khazana_slug,$ch_slug,$topic,$sub_topic)
+{
+      $a= json_decode(file_getsuper_contents("https://api.penpencil.xyz/v1/programs/$khazana_slug/subjects/$ch_slug/chapters/$topic/topics/$sub_topic/contents/sub-topic?page=1", getBaseHeaders()), true)['data'];
+
+      $b= json_decode(file_getsuper_contents("https://api.penpencil.xyz/v1/programs/$khazana_slug/subjects/$ch_slug/chapters/$topic/topics/$sub_topic/contents/sub-topic?page=2", getBaseHeaders()), true)['data'];
+
+return array_merge($a, $b);
+
+}
+
+
+
+function getKhazanaSubSubTopics($khazana_slug,$ch_slug,$topic,$sub_topic,$subsub)
+{
+      $a= json_decode(file_getsuper_contents("https://api.penpencil.xyz/v2/programs/contents?type=&programId=$khazana_slug&subjectId=$ch_slug&chapterId=$topic&topicId=$sub_topic&page=1&subTopicId=$subsub", getBaseHeaders()), true)['data'];
+
+      $b= json_decode(file_getsuper_contents("https://api.penpencil.xyz/v2/programs/contents?type=&programId=$khazana_slug&subjectId=$ch_slug&chapterId=$topic&topicId=$sub_topic&page=2&subTopicId=$subsub", getBaseHeaders()), true)['data'];
+
+return array_merge($a, $b);
+
+}
+
+
+
+
+
+
 function getProfile()
 {
     return json_decode(file_getsuper_contents("https://api.penpencil.xyz/v1/users/my-profile", getBaseHeaders()), true)['data'];
