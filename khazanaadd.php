@@ -55,7 +55,7 @@ $khazana_subjects = getKhazanaSubjects($khzslug);
 $new = true;
   
 foreach($old_khazana as $khazana){
-  if($khazanaProgramId = $khazana["_id"]){
+  if($khazanaProgramId == $khazana["_id"]){
     $new = false;
   }
 }
