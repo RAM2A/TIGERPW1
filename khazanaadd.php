@@ -1,6 +1,8 @@
 <?php
 
 require('./endpoints.php');
+ini_set('max_execution_time', '0'); // for infinite time of execution 
+set_time_limit(0);
 
 
 if (!file_exists('khazana/chapters')) {
@@ -158,10 +160,11 @@ if($_GET['action'] == 'importKhazanach' && isset($_GET['kh_subs_index']) && isse
              $topics[$topic_index]['sub_topics'] = $sub_topics;
         
       }
-
+    $kkkk = $index+10;
+  
     
     save_json("khazana/chapters/$chid.json",$topics);
-       echo "<script>location.replace('/khazanaadd.php?action=importKhazanaSubject&kh_subs_index=${index+10}&kh_id=$khazanaProgramId')</script>";
+       echo "<script>location.replace('/khazanaadd.php?action=importKhazanaSubject&kh_subs_index=$kkkk&kh_id=$khazanaProgramId')</script>";
 
 }
 
