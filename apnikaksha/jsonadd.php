@@ -17,7 +17,7 @@ if (!file_exists('announcements')) {
     mkdir('announcements', 0777, true);
 }
 
- // print_r(getProfile());
+  //print_r(getProfile());
 
 if(@$_GET['action'] == 'addBatches'){
   $email = @getProfile()[0]['username'];

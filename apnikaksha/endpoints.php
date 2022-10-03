@@ -6,18 +6,20 @@
 
 function getBaseHeaders()
 {
-$token = json_decode(file_get_contents('./token.txt'),true);
+
+  $token = json_decode(file_get_contents('./token.txt'),true);
 
   $tok = $token["token"];
   $user = $token["userid"];
-  
 
     return [
     'auth-key' => 'appxapi',
-    'authorization' => $tok,
-    'content-type' => 'application/json',
+    'Authorization' => $tok,
+    'Accept-Encoding' => 'gzip',
     'user-id' => $user,
-    'user-agent' => 'okhttp/4.9.1',
+   'client-service' => 'Appx',
+    'Accept-Language' => 'en-US,en-IN;q=0.9,en;q=0.8,hi-IN;q=0.7,hi;q=0.6',
+    'User-Agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1'
     ];
 }
 
@@ -27,26 +29,33 @@ $token = json_decode(file_get_contents('./token.txt'),true);
 
 function file_getsuper_contents($url, $headerData)
 {
-    // $postdata = http_build_query($data);
+  
+$token = json_decode(file_get_contents('./token.txt'),true);
+
+  $tok = $token["token"];
+  $user = $token["userid"];
+  
+$curl = curl_init($url);
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+$headers = array(
+"auth-key: appxapi",
+"Authorization: " . $tok,
+"user-id: ".$user,
+"client-service: Appx",
+"Accept-Language: en-US,en-IN;q=0.9,en;q=0.8,hi-IN;q=0.7,hi;q=0.6",
+"User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+);
+
+curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
 
-    array_walk($headerData, static function (&$v, $k) {
-        $v = $k . ': ' . $v;
-    });
+$resp = curl_exec($curl);
+curl_close($curl);
 
-    $headerData = implode("\n", $headerData);
+  return $resp;
 
-
-    $opts = array(
-        'http' =>
-        array(
-            'method'  => 'GET',
-            'header' => $headerData,
-        )
-    );
-
-    $context = stream_context_create($opts);
-    return file_get_contents($url, false, $context);
 }
 
 
@@ -57,7 +66,7 @@ function getAllBatches()
 {
   $token = json_decode(file_get_contents('./token.txt'),true);
 
- $a= json_decode(file_getsuper_contents("https://apnikakshaapi.teachx.in/get/mycourse?userid=" . $token['userid'], getBaseHeaders()), true);
+ $a= json_decode(file_getsuper_contents("https://apnikakshaapi.teachx.in/get/mycourseweb?userid=" . $token['userid'], getBaseHeaders()), true);
 return $a["data"];
 }
 
