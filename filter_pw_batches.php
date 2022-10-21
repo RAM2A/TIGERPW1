@@ -3,6 +3,7 @@
 echo "OPTIMIZING IMPORTED BATCHES";
 
 
+include('endpoints.php');
 $old_batches = @get_json('batches_un.json');
 
 
@@ -53,7 +54,16 @@ foreach ($batch_d as $value) {
   
 }
 
-$arrr = ["ALLBATCHES" => $final_batches];
+$final_fi= [];
+
+foreach ($final_batches as $v) {
+  $da = getBatchDetails($v['id']);
+  $da['description'] = '';
+  $final_fi[]= $da;
+  echo 'OPTIMIZING '.$da['name'].'<br>';
+}
+
+$arrr = ["ALLBATCHES" => $final_fi];
 
   save_json('batches.json',$arrr);
 

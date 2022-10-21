@@ -41,7 +41,7 @@ foreach(getAllBatches() as $batch){
 }
   save_json('batches_un.json',$old_batches);
 
-  echo '<script>location.replace("filter_pw_batches.php")</script>';
+  echo '<script>location.replace("json_add.php")</script>';
 }
   
 }
@@ -267,6 +267,7 @@ select {
         <div class='buttons'>
         <a class="waves-effect waves-light btn red" href="?action=addEverything">import everything (Caution:Causes Server LOAD)</a>
                   <a class="waves-effect waves-light btn" href="?action=importBatches">import batches</a>
+ <a class="waves-effect waves-light btn" href="filter_pw_batches.php">optimize batches</a>
           <div>
       </div>
 
