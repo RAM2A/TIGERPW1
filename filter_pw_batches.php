@@ -63,7 +63,7 @@ foreach ($final_batches as $v) {
   echo 'OPTIMIZING '.$da['name'].'<br>';
 }
 
-$arrr = ["ALLBATCHES" => $final_fi];
+$arrr = ["ALLBATCHES" => [$final_fi]];
 
   save_json('batches.json',$arrr);
 
