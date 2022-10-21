@@ -59,11 +59,12 @@ $final_fi= [];
 foreach ($final_batches as $v) {
   $da = getBatchDetails($v['id']);
   $da['description'] = '';
-  $final_fi[]= $da;
+  $v['details'] = $da;
+  $final_fi[]= $v;
   echo 'OPTIMIZING '.$da['name'].'<br>';
 }
 
-$arrr = ["ALLBATCHES" => [$final_fi]];
+$arrr = ["ALLBATCHES" => $final_fi];
 
   save_json('batches.json',$arrr);
 
