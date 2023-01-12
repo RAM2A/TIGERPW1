@@ -53,7 +53,7 @@ $subjects = $batchdet["subjects"];
 $batchSlug = $batchdet["slug"];
     
 foreach($subjects as $subject){
-    $subject_data = getTopicDetails($batchSlug,$subject["slug"]);
+    $subject_data = getTopicDetails(urlencode($batchSlug),$subject["slug"]);
 
   
   foreach($subject_data as $index => $topic){
@@ -61,11 +61,11 @@ foreach($subjects as $subject){
     $subject_data[$index]["_id"] = $subject["slug"].$topic["slug"];
       
     $suptopic = new stdClass();
-    $suptopic->videos = getSubTopicDetails($batchSlug, $subject["slug"], $topic["slug"],'videos');
-    $suptopic->notes = getSubTopicDetails($batchSlug ,$subject["slug"], $topic["slug"],'notes');
-        $suptopic->DppNotes = getSubTopicDetails($batchSlug ,$subject["slug"], $topic["slug"],'DppNotes');
-        $suptopic->DppVideos = getSubTopicDetails($batchSlug ,$subject["slug"], $topic["slug"],'DppVideos');
-         $suptopic->exercises = getSubTopicDetails($batchSlug ,$subject["slug"], $topic["slug"],'exercises');
+    $suptopic->videos = getSubTopicDetails(urlencode($batchSlug), $subject["slug"], $topic["slug"],'videos');
+    $suptopic->notes = getSubTopicDetails(urlencode($batchSlug) ,$subject["slug"], $topic["slug"],'notes');
+        $suptopic->DppNotes = getSubTopicDetails(urlencode($batchSlug) ,$subject["slug"], $topic["slug"],'DppNotes');
+        $suptopic->DppVideos = getSubTopicDetails(urlencode($batchSlug) ,$subject["slug"], $topic["slug"],'DppVideos');
+         $suptopic->exercises = getSubTopicDetails(urlencode($batchSlug) ,$subject["slug"], $topic["slug"],'exercises');
 
 
       $saveto = "subtopics/".$subject["slug"].$topic["slug"].".json";
