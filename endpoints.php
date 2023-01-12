@@ -114,17 +114,19 @@ function getTopicDetails($batchid, $subject_id)
 {
     $finalD = [];
     $data =  json_decode(file_getsuper_contents("https://api.penpencil.xyz/v2/batches/$batchid/subject/$subject_id/topics?page=1", getBaseHeaders()), true);
-    $i = count($data['data']);
+    // $i = count($data['data']);
 
     $finalD = array_merge($finalD, $data['data']);
 
     $p = 2;
-    while ($i < $data['paginate']['totalCount']) {
+  
+    while (count($data['data']) != 0 ) {
         $data =  json_decode(file_getsuper_contents("https://api.penpencil.xyz/v2/batches/$batchid/subject/$subject_id/topics?page=$p", getBaseHeaders()), true);
-        $i = $i + count($data['data']);
+        // $i = $i + count($data['data']);
 
         $finalD = array_merge($finalD, $data['data']);
         $p++;
+        
     }
     return $finalD;
 }
