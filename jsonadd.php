@@ -41,7 +41,7 @@ foreach(getAllBatches() as $batch){
 }
   save_json('batches_un.json',$old_batches);
 
-  echo '<script>location.replace("json_add.php")</script>';
+  echo '<script>location.replace("jsonadd.php")</script>';
 }
   
 }
