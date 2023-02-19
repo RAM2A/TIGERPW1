@@ -1,6 +1,6 @@
 <?php
-
 require('./endpoints.php');
+set_time_limit(0);
 
 if (!file_exists('topics')) {
     mkdir('topics', 0777, true);
@@ -11,6 +11,16 @@ if (!file_exists('subtopics')) {
     mkdir('subtopics', 0777, true);
 }
 
+function run($command, $outputFile = 'runlock.txt') {
+    $processId = shell_exec(sprintf(
+        '%s > %s 2>&1 & echo $!',
+        $command,
+        $outputFile
+    ));
+       
+      print_r("processID of process in background is: "
+        . $processId);
+}
 // print_r(getAllBatches());
 
 if($_GET['action'] == 'importBatches'){
@@ -46,42 +56,57 @@ foreach(getAllBatches() as $batch){
   
 }
 
-if($_GET['action'] == 'importBatch' && isset($_GET['batch_id'])){
-$batch_id = $_GET['batch_id'];
-$batchdet = getBatchDetails($batch_id);
-$subjects = $batchdet["subjects"];
-$batchSlug = $batchdet["slug"];
+if($_GET['action'] == 'importBatch' && isset($_GET['batch_id'])){ 
+  
+if( strpos(file_get_contents("runlock.txt"),"DONE DONE DONE") !== false) {    
+file_put_contents("currbatch.txt",$_GET['batch_id']);
+file_put_contents("runlock.txt","");
+// "sleep 5" process will run in background
+run("php jsonadd_back.php");
+  
+print_r("Task Added.processID is: ".getmypid());
+}else{
+  echo "wait for previous batch to import fully\n";
+}
+  
+// $batch_id = $_GET['batch_id'];
+// $batchdet = getBatchDetails($batch_id);
+// $subjects = $batchdet["subjects"];
+// $batchSlug = $batchdet["slug"];
     
-foreach($subjects as $subject){
-    $subject_data = getTopicDetails(urlencode($batchSlug),$subject["slug"]);
+// foreach($subjects as $subject){
+//     $subject_data = getTopicDetails(urlencode($batchSlug),$subject["slug"]);
 
   
-  foreach($subject_data as $index => $topic){
+//   foreach($subject_data as $index => $topic){
 
-    $subject_data[$index]["_id"] = $subject["slug"].$topic["slug"];
+//     $subject_data[$index]["_id"] = $subject["slug"].$topic["slug"];
       
-    $suptopic = new stdClass();
-    $suptopic->videos = getSubTopicDetails(urlencode($batchSlug), $subject["slug"], $topic["slug"],'videos');
-    $suptopic->notes = getSubTopicDetails(urlencode($batchSlug) ,$subject["slug"], $topic["slug"],'notes');
-        $suptopic->DppNotes = getSubTopicDetails(urlencode($batchSlug) ,$subject["slug"], $topic["slug"],'DppNotes');
-        $suptopic->DppVideos = getSubTopicDetails(urlencode($batchSlug) ,$subject["slug"], $topic["slug"],'DppVideos');
-         $suptopic->exercises = getSubTopicDetails(urlencode($batchSlug) ,$subject["slug"], $topic["slug"],'exercises');
+//     $suptopic = new stdClass();
+//     $suptopic->videos = getSubTopicDetails(urlencode($batchSlug), $subject["slug"], $topic["slug"],'videos');
+//     $suptopic->notes = getSubTopicDetails(urlencode($batchSlug) ,$subject["slug"], $topic["slug"],'notes');
+//         $suptopic->DppNotes = getSubTopicDetails(urlencode($batchSlug) ,$subject["slug"], $topic["slug"],'DppNotes');
+//         $suptopic->DppVideos = getSubTopicDetails(urlencode($batchSlug) ,$subject["slug"], $topic["slug"],'DppVideos');
+//          $suptopic->exercises = getSubTopicDetails(urlencode($batchSlug) ,$subject["slug"], $topic["slug"],'exercises');
 
 
-      $saveto = "subtopics/".$subject["slug"].$topic["slug"].".json";
-    save_json($saveto,$suptopic);
+//       $saveto = "subtopics/".$subject["slug"].$topic["slug"].".json";
+//     save_json($saveto,$suptopic);
 
-echo 'Adding Topic:'.$topic["name"]." in <b>".$batchdet["name"].'</b><br><br>';
-    
-    }
+// echo 'Adding Topic:'.$topic["name"]." in <b>".$batchdet["name"].'</b><br><br>';
+//     sleep(3);
 
-  // print_r($subject_data);
+//     }
+
+//   // print_r($subject_data);
   
-  $savetoSub = "topics/".$subject["_id"].".json";
-      save_json($savetoSub,$subject_data);
+//   $savetoSub = "topics/".$subject["_id"].".json";
+//       save_json($savetoSub,$subject_data);
 
     
-  }
+//   }
+
+    sleep(2);
     echo '<script>location.replace("jsonadd.php")</script>';
 
 }
@@ -144,7 +169,6 @@ foreach($subjects as $subject){
 
       $saveto = "subtopics/".$topic["_id"].".json";
     save_json($saveto,$suptopic);
-
 echo 'Adding Topic:'.$topic["name"]." in <b>".$batch["name"].'</b><br><br>';
     
     }
