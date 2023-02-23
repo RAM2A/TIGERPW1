@@ -21,6 +21,21 @@ function getBaseHeaders()
 
 
 
+function send_tg_updates($msg){
+  $ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'https://api.telegram.org/bot5918206900:AAF3vqYtwlEUyKrwMk1j2I7yPYka9TAygaY/sendMessage');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/x-www-form-urlencoded',
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, "chat_id=-1001895705515&text=$msg&parse_mode=html");
+
+$response = curl_exec($ch);
+
+curl_close($ch);
+}
+
 
 
 function getAllBatches()
