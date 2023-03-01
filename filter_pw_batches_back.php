@@ -62,6 +62,14 @@ foreach ($final_batches as $v) {
   $da = getBatchDetails($v['id']);
   $da['description'] = '';
   $v['details'] = $da;
+  if($v["previewImage"] == null){
+     $v["previewImage"] = [
+   "_id" => "63380f36f4f7f908745d32", 
+   "baseUrl" => "https://www.vegrecipesofindia.com/wp-content/uploads/2013/10/", 
+   "key" => "sandesh-recipe-1a.jpg", 
+   "name" => "WhatsApp Image 2022s-10-01 at 3.23.07 PM.jpeg" 
+]; 
+  }
   $final_fi[]= $v;
   echo 'OPTIMIZING '.$da['name'].'<br>';
   send_tg_updates('OPTIMIZING '.$da['name']);
