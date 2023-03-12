@@ -40,7 +40,16 @@ $load_html = true;
 
 
 
-
+function run($command, $outputFile = 'runlock.txt') {
+    $processId = shell_exec(sprintf(
+        '%s > %s 2>&1 & echo $!',
+        $command,
+        $outputFile
+    ));
+       
+      print_r("processID of process in background is: "
+        . $processId);
+}
 
 if($_GET['action'] == 'importKhazanaChs' && isset($_GET['kh_id'])){
 
@@ -123,47 +132,61 @@ if($_GET['action'] == 'importKhazanaSubject' && isset($_GET['kh_subs_index']) &&
 }
 
 if($_GET['action'] == 'importKhazanach' && isset($_GET['kh_subs_index']) && isset($_GET['kh_ch_index']) && isset($_GET['kh_id'])){
+  //khazanaadd_back.php
+
+  if( strpos(file_get_contents("runlock.txt"),"DONE DONE DONE") !== false) {    
+file_put_contents("currbatch.txt",$_GET['batch_id']);
+file_put_contents("runlock.txt","");
+// "sleep 5" process will run in background
+run("php khazanaadd_back.php ".$_GET['kh_subs_index']." ". $_GET['kh_ch_index'] . " ".$_GET['kh_id']);
+  
+print_r("Task Added.processID is: ".getmypid());
+}else{
+  echo "wait for previous batch to import fully\n";
+}
+  sleep(2);
 
     $khazanaProgramId = $_GET['kh_id'];
   
-  $subjects = @get_json("khazana/subjects/$khazanaProgramId.json");
+  // $subjects = @get_json("khazana/subjects/$khazanaProgramId.json");
   $index = $_GET['kh_subs_index'] - 10;
-  $chindex = $_GET['kh_ch_index'] - 10;
+  // $chindex = $_GET['kh_ch_index'] - 10;
   
-  $khazanaProgramData = getKhazanaDetails($khazanaProgramId);
+  // $khazanaProgramData = getKhazanaDetails($khazanaProgramId);
 
   
-  $khslug = $khazanaProgramData['slug'];
-  $subject = $subjects[$index];
-  $sub_slug = $subject['slug'];
-    $chapters = $subject['chapters'];
+  // $khslug = $khazanaProgramData['slug'];
+  // $subject = $subjects[$index];
+  // $sub_slug = $subject['slug'];
+  //   $chapters = $subject['chapters'];
 
-  $ch = $chapters[$chindex];
-      $chslug = $ch['slug'];
-    $chid = $ch['_id'];
+  // $ch = $chapters[$chindex];
+  //     $chslug = $ch['slug'];
+  //   $chid = $ch['_id'];
     
-    echo 'Adding Chapter: <b>'.$ch["description"].' in </b> '.$subject["name"].'<br><br>';  
+  //   echo 'Adding Chapter: <b>'.$ch["description"].' in </b> '.$subject["name"].'<br><br>';  
 
-    $topics = getKhazanaTopics($khslug,$sub_slug,$chslug);
+  //   $topics = getKhazanaTopics($khslug,$sub_slug,$chslug);
     
-      foreach($topics as $topic_index => $tc){
-        $topic_id = $tc['_id'];
-        $sub_topics = getKhazanaSubTopics($khslug,$sub_slug,$chslug,$topic_id);
+  //     foreach($topics as $topic_index => $tc){
+  //       $topic_id = $tc['_id'];
+  //       $sub_topics = getKhazanaSubTopics($khslug,$sub_slug,$chslug,$topic_id);
         
-              foreach($sub_topics as $sub_topic_index => $stc){
-              $sub_topic_id = $stc['_id'];
-              $sub_sub_topics = getKhazanaSubSubTopics($khslug,$sub_slug,$chslug,$topic_id,$sub_topic_id);
-              $sub_topics[$sub_topic_index]['sub_topic_data'] = $sub_sub_topics;
-                // print_r($sub_sub_topics);
-              }
+  //             foreach($sub_topics as $sub_topic_index => $stc){
+  //             $sub_topic_id = $stc['_id'];
+  //             $sub_sub_topics = getKhazanaSubSubTopics($khslug,$sub_slug,$chslug,$topic_id,$sub_topic_id);
+  //             $sub_topics[$sub_topic_index]['sub_topic_data'] = $sub_sub_topics;
+  //               // print_r($sub_sub_topics);
+  //             }
         
-             $topics[$topic_index]['sub_topics'] = $sub_topics;
+  //            $topics[$topic_index]['sub_topics'] = $sub_topics;
         
-      }
-    $kkkk = $index+10;
+  //     }
+  //   $kkkk = $index+10;
   
-    
-    save_json("khazana/chapters/$chid.json",$topics);
+        $kkkk = $index+10;
+
+  //   save_json("khazana/chapters/$chid.json",$topics);
        echo "<script>location.replace('/khazanaadd.php?action=importKhazanaSubject&kh_subs_index=$kkkk&kh_id=$khazanaProgramId')</script>";
 
 }
